@@ -20,8 +20,8 @@ func main() {
 
 	err := validate.Validate(email)
 	if err != nil {
-		fmt.Println(email)
-		fmt.Println(err)
+		fmt.Println("Error:", err)
+		log.Fatal()
 	}
 
 	key := signage.GetPrivateKey(2048)

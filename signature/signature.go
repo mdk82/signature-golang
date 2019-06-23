@@ -26,7 +26,7 @@ func GetSignature(input string, privateKey *rsa.PrivateKey) Signature {
 		log.Fatalf("Not able to create signature %v", err)
 	}
 
-	pemBytes := pem.EncodeToMemory(&pem.Block{
+	pubkeyBytes := pem.EncodeToMemory(&pem.Block{
 		Type:  "PUBLIC KEY",
 		Bytes: x509.MarshalPKCS1PublicKey(&privateKey.PublicKey),
 	})
@@ -34,6 +34,6 @@ func GetSignature(input string, privateKey *rsa.PrivateKey) Signature {
 	return Signature{
 		Message:   input,
 		Signature: base64.StdEncoding.EncodeToString(signature),
-		Pubkey:    string(pemBytes),
+		Pubkey:    string(pubkeyBytes),
 	}
 }
